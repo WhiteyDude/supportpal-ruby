@@ -1,11 +1,11 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "supportpal/ruby/version"
+require "supportpal/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "supportpal-ruby"
-  spec.version       = Supportpal::Ruby::VERSION
+  spec.version       = SupportPal::VERSION
   spec.authors       = ["Andrew White"]
   spec.email         = ["github@and.rew.ninja"]
 
@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "dotenv", "~> 2.7.2"
 
   # Runtime dependancies
   spec.add_runtime_dependency "httparty", "~> 0.17.0"
