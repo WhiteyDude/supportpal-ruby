@@ -10,7 +10,7 @@ module SupportPal
   class Session
     include HTTParty
     # Uncomment to debug output
-    #debug_output $stdout
+    debug_output $stdout
 
     def initialize(options)
       # Make a class variable
@@ -23,7 +23,6 @@ module SupportPal
         config = SupportPal::Configure.new
       end
       @config = config.config
-      puts @config.inspect
         
       # Check to ensure required options exist
       raise Error, 'You must provide a base_uri option!' if ! @options['base_uri']
@@ -55,9 +54,65 @@ module SupportPal
       params['priority']          = (options['priority']) ? options['priority'] : @config[:ticket_priority]
 
       @http_options.merge!({ body: params })
-      puts @http_options.inspect
       res = self.class.post('/api/ticket/ticket', @http_options)
-      puts res.inspect
+      response = res.parsed_response
+      if response['status'] == 'success' then
+        return {
+          :status         => 'success',
+          :ticket_id      => response['data']['id']
+        }
+      else
+        return {
+          :status           => 'failure',
+          :message          => response['message']
+        }
+      end
     end
+
+    def add_ticket_note(ticket_id, message, options = {})
+      params = {}
+      params['text']              = message
+
+      params['user_id']              = @config[:ticket_user_id]
+      params['user_id']              = options['operator_id'] if options['operator_id']
+      params['user_id']              = options['user_id'] if options['user_id']
+
+      params['ticket_id']         = ticket_id
+      params['message_type']      = 1 # 1 = note, 0 = reply
+
+      @http_options.merge!({ body: params })
+      res = self.class.post("/api/ticket/message", @http_options)
+      response = res.parsed_response
+      if response['status'] == 'success' then
+        return {
+          :status         => 'success',
+          :message        => response['message']
+        }
+      else
+        return {
+          :status           => 'failure',
+          :message          => response['message']
+        }
+      end
+    end
+
+    def close_ticket_by_id(ticket_id)
+      # Check if ticket_id is an integer
+      @http_options.merge!({ body: { status: 2 } })
+      res = self.class.put("/api/ticket/ticket/#{ticket_id}", @http_options)
+      response = res.parsed_response
+      if response['status'] == 'success' then
+        return {
+          :status         => 'success',
+          :message        => response['message']
+        }
+      else
+        return {
+          :status           => 'failure',
+          :message          => response['message']
+        }
+      end
+    end
+
   end
 end
