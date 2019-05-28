@@ -4,14 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "supportpal/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "supportpal-ruby"
+  spec.name          = "supportpal"
   spec.version       = SupportPal::VERSION
   spec.authors       = ["Andrew White"]
   spec.email         = ["github@and.rew.ninja"]
 
   spec.summary       = %q{Provides ruby functions to natively call SupportPal APIs directly without adding cURL or HTTP call gems to your code}
   spec.description   = %q{Native SupportPal API calls}
-  spec.homepage      = "https://github.com/WhiteyDude/supportpal-ruby"
+  spec.homepage      = "https://github.com/WhiteyDude/supportpal"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "https://github.com/WhiteyDude/supportpal-ruby"
-    spec.metadata["changelog_uri"] = "https://github.com/WhiteyDude/supportpal-ruby"
+    spec.metadata["source_code_uri"] = "https://github.com/WhiteyDude/supportpal"
+    spec.metadata["changelog_uri"] = "https://github.com/WhiteyDude/supportpal"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
