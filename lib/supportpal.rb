@@ -42,56 +42,56 @@ module SupportPal
 
     def open_new_ticket(subject, message, options = {})
       params = {}
-      params['subject']           = subject
-      params['text']              = message
+      params['subject']                     = subject
+      params['text']                        = message
 
-      params['user']              = @config[:ticket_user_id]
-      params['user']              = options['operator_id'] if options['operator_id']
-      params['user']              = options['user_id'] if options['user_id']
+      params['user']                        = @config[:ticket_user_id]
+      params['user']                        = options['operator_id'] if options['operator_id']
+      params['user']                        = options['user_id'] if options['user_id']
 
-      params['department']        = (options['department']) ? options['department'] : @config[:ticket_department_id]
-      params['status']            = (options['status']) ? options['status'] : @config[:ticket_status]
-      params['priority']          = (options['priority']) ? options['priority'] : @config[:ticket_priority]
+      params['department']                  = (options['department']) ? options['department'] : @config[:ticket_department_id]
+      params['status']                      = (options['status']) ? options['status'] : @config[:ticket_status]
+      params['priority']                    = (options['priority']) ? options['priority'] : @config[:ticket_priority]
 
       @http_options.merge!({ body: params })
       res = self.class.post('/api/ticket/ticket', @http_options)
       response = res.parsed_response
       if response['status'] == 'success' then
         return {
-          :status         => 'success',
-          :ticket_id      => response['data']['id']
+          :status                           => 'success',
+        :ticket_id                          => response['data']['id']
         }
       else
         return {
-          :status           => 'failure',
-          :message          => response['message']
+          :status                           => 'failure',
+          :message                          => response['message']
         }
       end
     end
 
     def add_ticket_note(ticket_id, message, options = {})
       params = {}
-      params['text']              = message
+      params['text']                        = message
 
-      params['user_id']              = @config[:ticket_user_id]
-      params['user_id']              = options['operator_id'] if options['operator_id']
-      params['user_id']              = options['user_id'] if options['user_id']
+      params['user_id']                     = @config[:ticket_user_id]
+      params['user_id']                     = options['operator_id'] if options['operator_id']
+      params['user_id']                     = options['user_id'] if options['user_id']
 
-      params['ticket_id']         = ticket_id
-      params['message_type']      = 1 # 1 = note, 0 = reply
+      params['ticket_id']                   = ticket_id
+      params['message_type']                = 1 # 1 = note, 0 = reply
 
       @http_options.merge!({ body: params })
       res = self.class.post("/api/ticket/message", @http_options)
       response = res.parsed_response
       if response['status'] == 'success' then
         return {
-          :status         => 'success',
-          :message        => response['message']
+          :status                           => 'success',
+          :message                          => response['message']
         }
       else
         return {
-          :status           => 'failure',
-          :message          => response['message']
+          :status                           => 'failure',
+          :message                          => response['message']
         }
       end
     end
@@ -103,13 +103,13 @@ module SupportPal
       response = res.parsed_response
       if response['status'] == 'success' then
         return {
-          :status         => 'success',
-          :message        => response['message']
+          :status                           => 'success',
+          :message                          => response['message']
         }
       else
         return {
-          :status           => 'failure',
-          :message          => response['message']
+          :status                           => 'failure',
+          :message                          => response['message']
         }
       end
     end

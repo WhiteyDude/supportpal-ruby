@@ -4,11 +4,11 @@ module SupportPal
 
     def default_config
       @config = {
-        :ticket_status        => 1, # Open
-        :ticket_priority      => 1, # Low
-        :ticket_user_id       => nil, # Operator or user
-        :ticket_department_id => nil,
-        :auth_token           => nil, # SupportPal token
+        :ticket_status                  => 1, # Open
+        :ticket_priority                => 1, # Low
+        :ticket_user_id                 => nil, # Operator or user
+        :ticket_department_id           => nil,
+        :auth_token                     => nil, # SupportPal token
       }
     end  
 
