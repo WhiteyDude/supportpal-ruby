@@ -8,6 +8,8 @@ module SupportPal
         :ticket_priority                => 1, # Low
         :ticket_user_id                 => nil, # Operator or user
         :ticket_department_id           => nil,
+        :ticket_send_user_email         => false, # Send an email to the user who opens the ticket when ticket opens
+        :ticket_send_operators_email    => false, # Send an email to all operators when ticket opens
         :auth_token                     => nil, # SupportPal token
       }
     end  

@@ -10,7 +10,7 @@ module SupportPal
   class Session
     include HTTParty
     # Uncomment to debug output
-    #debug_output $stdout
+    debug_output $stdout
 
     def initialize(options)
       # Make a class variable
@@ -46,12 +46,17 @@ module SupportPal
       params['text']                        = message
 
       params['user']                        = @config[:ticket_user_id]
-      params['user']                        = options['operator_id'] if options['operator_id']
-      params['user']                        = options['user_id'] if options['user_id']
+      params['user']                        = options[:operator_id] if options[:operator_id]
+      params['user']                        = options[:user_id] if options[:user_id]
 
-      params['department']                  = (options['department']) ? options['department'] : @config[:ticket_department_id]
-      params['status']                      = (options['status']) ? options['status'] : @config[:ticket_status]
-      params['priority']                    = (options['priority']) ? options['priority'] : @config[:ticket_priority]
+      params['department']                  = (options[:department]) ? options[:department] : @config[:ticket_department_id]
+      params['status']                      = (options[:status]) ? options[:status] : @config[:ticket_status]
+      params['priority']                    = (options[:priority]) ? options[:priority] : @config[:ticket_priority]
+
+      params['internal']                    = options[:internal] if options[:internal]
+
+      params['send_user_email']             = (options[:send_user_email]) ? options[:send_user_email] : @config[:ticket_send_user_email]
+      params['send_operators_email']        = (options[:send_operators_email]) ? options[:send_operators_email] : @config[:ticket_send_operators_email]
 
       @http_options.merge!({ body: params })
       res = self.class.post('/api/ticket/ticket', @http_options)
