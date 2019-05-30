@@ -10,7 +10,7 @@ module SupportPal
   class Session
     include HTTParty
     # Uncomment to debug output
-    debug_output $stdout
+    #debug_output $stdout
 
     def initialize(options)
       # Make a class variable
